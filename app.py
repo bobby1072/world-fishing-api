@@ -10,9 +10,9 @@ def find_species():
     except:
         return flask.jsonify("inncorrect URL argument given")
     fish_objs = All_fish()
-    fish_objs.find_fish_objects(species_name)
-    fish_objs.create_api_response()
-    return flask.jsonify(fish_objs.fish_json_list)
+    all_fish_objs = fish_objs.find_fish_objects(species_name)
+    response = fish_objs.create_api_response(all_fish_objs)
+    return flask.jsonify(response)
 
 @app.route("/specienumbers", methods={"POST"})
 def get_specie_numbers():

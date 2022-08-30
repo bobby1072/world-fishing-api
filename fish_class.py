@@ -10,12 +10,24 @@ class Fish:
                            "Code": self.code,
                            "Scientific Name": self.latin
                            }
+    def get_species_info(self):
+        try:
+            species_info = json.loads(requests.get(f"https://www.fishwatch.gov/api/species/{self.name}").text)
+            self.species_json_info = {"Physical Description": species_info[0]["Physical Description"],
+                                      "Species Photo": species_info[0]['Species Illustration Photo']["src"]
+                                      }
+        except:
+            self.species_json_info = None
+        self.json_catch["Species Info"] = self.species_json_info
     def get_species_numbers(self):
         try:
             self.specie_numbers = json.loads(requests.get(f"http://openfisheries.org/api/landings/species/{self.code}.json").text)
         except:
-            self.specie_numbers = "N/A"
+            self.specie_numbers = None
         self.json_catch["Specie Numbers"] = self.specie_numbers
+
+
+
 class All_fish:
     def __init__(self):
         self.fish_json_data = json.loads(requests.get("http://openfisheries.org/api/landings/species.json").text)
@@ -35,9 +47,9 @@ class All_fish:
                     else:
                         new_fish_name = new_fish_name + words
                 fish_list.append(Fish(new_fish_name, fish["a3_code"], fish["scientific_name"]))
-        self.fish_obj_list = fish_list
-    def create_api_response(self):
+        return fish_list
+    def create_api_response(self, obj_list):
         fish_json_list = []
-        for fish_obj in self.fish_obj_list:
+        for fish_obj in obj_list:
             fish_json_list.append(fish_obj.json_catch)
-        self.fish_json_list = fish_json_list
+        return fish_json_list
