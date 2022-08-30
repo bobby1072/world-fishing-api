@@ -5,8 +5,8 @@ def fish_info():
         fish_objs = All_fish()
         filtered_fish_objs = fish_objs.find_fish_objects(key)
         for objs in filtered_fish_objs:
-            objs.get_species_numbers()
             objs.get_species_info()
+            objs.get_species_numbers()
             print(objs.json_catch)
 if __name__ == "__main__":
     fish_info()

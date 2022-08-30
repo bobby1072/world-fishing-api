@@ -46,7 +46,8 @@ class All_fish:
                         new_fish_name = new_fish_name + " " + words
                     else:
                         new_fish_name = new_fish_name + words
-                fish_list.append(Fish(new_fish_name, fish["a3_code"], fish["scientific_name"]))
+                if new_fish_name != "":
+                    fish_list.append(Fish(new_fish_name, fish["a3_code"], fish["scientific_name"]))
         return fish_list
     def create_api_response(self, obj_list):
         fish_json_list = []
