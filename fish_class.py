@@ -8,23 +8,23 @@ class Fish:
         self.latin = sci_name
         self.json_catch = {"Name": self.name,
                            "Code": self.code,
-                           "Scientific Name": self.latin
+                           "ScientificName": self.latin
                            }
     def get_species_info(self):
         try:
             species_info = json.loads(requests.get(f"https://www.fishwatch.gov/api/species/{self.name}").text)
-            self.species_json_info = {"Physical Description": species_info[0]["Physical Description"],
-                                      "Species Photo": species_info[0]['Species Illustration Photo']["src"]
+            self.species_json_info = {"PhysicalDescription": species_info[0]["Physical Description"],
+                                      "SpeciesPhoto": species_info[0]['Species Illustration Photo']["src"]
                                       }
         except:
             self.species_json_info = None
-        self.json_catch["Species Info"] = self.species_json_info
+        self.json_catch["SpeciesInfo"] = self.species_json_info
     def get_species_numbers(self):
         try:
             self.specie_numbers = json.loads(requests.get(f"http://openfisheries.org/api/landings/species/{self.code}.json").text)
         except:
             self.specie_numbers = None
-        self.json_catch["Specie Numbers"] = self.specie_numbers
+        self.json_catch["SpecieNumbers"] = self.specie_numbers
 
 
 
