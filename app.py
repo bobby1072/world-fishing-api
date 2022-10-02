@@ -35,7 +35,7 @@ def find_species_and_info():
 def get_full():
     try:
         species = flask.request.get_json()
-        fish_obj = Fish(species["Name"], species["Code"], species["Scientific Name"])
+        fish_obj = Fish(species["Name"], species["Code"], species["ScientificName"])
         fish_obj.get_species_numbers()
         fish_obj.get_species_info()
         return flask.jsonify(fish_obj.json_catch)
