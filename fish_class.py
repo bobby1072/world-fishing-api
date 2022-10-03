@@ -51,6 +51,7 @@ class All_fish:
         return fish_list
     def create_api_response(self, obj_list):
         fish_json_list = []
+        obj_list.sort(key=lambda x: x.name)
         for fish_obj in obj_list:
             fish_json_list.append(fish_obj.json_catch)
         return fish_json_list
